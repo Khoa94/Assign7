@@ -100,13 +100,28 @@ public class JSONParser {
             }// if left square brace, add new ArrayList
 
             else if (str.charAt(charIndex[0]) == 't'
-                    || str.charAt(charIndex[0]) == 'f') {
+                    || str.charAt(charIndex[0]) == 'f' || str.charAt(charIndex[0]) == 'n') {
                 while (str.charAt(charIndex[0]) != '}'
                         && str.charAt(charIndex[0]) != ',') {
                     sb.append(str.charAt(charIndex[0]));
                     charIndex[0]++;
                 }// while char is not end brace or comma (seperator)
                 Boolean value = Boolean.valueOf(sb.toString());
+                
+                if (value == true)
+                {
+                	value = Boolean.TRUE;
+                }//if
+                else if (value == false)
+                {
+                	value = Boolean.FALSE;
+                }//else if
+                
+                else 
+                {
+                	value = null;
+                }//else
+                
                 hb.put(key, value);
                 key = null;
                 value = null;
@@ -184,7 +199,7 @@ public class JSONParser {
             }// if left square brace, add new ArrayList
 
             else if (str.charAt(charIndex[0]) == 't'
-                    || str.charAt(charIndex[0]) == 'f') {
+                    || str.charAt(charIndex[0]) == 'f' || str.charAt(charIndex[0]) == 'n') {
                 while (str.charAt(charIndex[0]) != ']'
                         && str.charAt(charIndex[0]) != ',') {
                     sb.append(str.charAt(charIndex[0]));
@@ -192,6 +207,19 @@ public class JSONParser {
                 }// while char is not end brace of comma (seperator)
                 // charIndex[0]++;
                 Boolean value = Boolean.valueOf(sb.toString());
+                if (value == true)
+                {
+                	value = Boolean.TRUE;
+                }//if
+                else if (value == false)
+                {
+                	value = Boolean.FALSE;
+                }//else if
+                
+                else 
+                {
+                	value = null;
+                }//else
                 currentAL.add(value);
                 value = null;
             }// if char represents JSON constant
