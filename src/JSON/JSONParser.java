@@ -312,21 +312,6 @@ public class JSONParser {
             return null;
     }// ArrayList JSONObjectToArrayList(String str)
 
-    /*
-     * Preconditions: obj must be either a HashTable or an ArrayList
-     * Postconditions: return a string in JSON format
-     */
-    public static String JavaObjectsToJSONString(Object obj) {
-        String str = obj.toString();
-
-        // delete all the blank spaces
-        str = str.replaceAll("\\s+", "");
-
-        // replace '=' with ':'
-        str = str.replaceAll("=", ":");
-        return str;
-    }// JavaObjectsToJSONString (Object obj)
-
     // all the methods work as expected.
     public static void main(String[] args) {
         String str1 = "{\"firstName\":\"John\",\"lastName\":\"Doe\" }";
@@ -345,15 +330,19 @@ public class JSONParser {
         // converting Hashtable and ArrayList to string in JSON format
         Hashtable hb1 = new Hashtable();
         hb1.put("a", "1");
-        hb1.put("b", "2");
-        hb1.put("c", "3");
+        hb1.put("b", 2345);
+        hb1.put("c", "89");
 
+        HashtableToJSONString hb2 = new HashtableToJSONString(hb1);
+        System.out.println(hb2.toString());
+        
         ArrayList ar1 = new ArrayList();
-        ar1.add("a");
-        ar1.add("b");
-        ar1.add(hb1);
+        ar1.add("ab");
+        ar1.add(12);
+        ar1.add(hb2);
         ar1.add("c");
-
-        System.out.println(JavaObjectsToJSONString(ar1));
+        ArrayListToJSONString ar2 = new ArrayListToJSONString (ar1);
+        System.out.println(ar2.toString());
+        //System.out.println(JavaObjectsToJSONString(ar2));
     }// main
 }//JSONParser Class
