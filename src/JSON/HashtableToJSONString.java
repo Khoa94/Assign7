@@ -13,15 +13,20 @@ public class HashtableToJSONString
   Hashtable hb;
 
   // constructor
+  /*
+   * Constructor Precondition: hb is a Hashtable Postcondition: hb=inputHB
+   */
   HashtableToJSONString(Hashtable inputHB)
   {
     hb = inputHB;
   }// HashtableToJSONString(Hashtable inputHB)
 
   @Override
-  // return a JSON string for hb
-    public
-    String toString()
+  /*
+   * return a JSON string for hb Precondition: hb is initialized Postcondition:
+   * return a JSON string for hb
+   */
+  public String toString()
   {
     StringBuilder sb = new StringBuilder();
     sb.append('{');

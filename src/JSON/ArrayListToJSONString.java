@@ -11,16 +11,23 @@ public class ArrayListToJSONString
   // field
   ArrayList arr;
 
-  // constructor
+  /*
+   * Constructor Preconditions: inputArrayList is an ArrayList PostCondition:
+   * arr = inputArrayList
+   */
   public ArrayListToJSONString(ArrayList inputArrayList)
   {
     arr = inputArrayList;
   }// ArrayListToJSONString(ArrayList inputArrayList)
 
   @Override
-  // return a JSON string for arr
-    public
-    String toString()
+  /*
+   * return a JSON string for arr Precondition: arr is initialized
+   * Postcondition: return a JSON string for arr
+   * 
+   * @see java.util.AbstractCollection#toString()
+   */
+  public String toString()
   {
     Iterator it = arr.iterator();
     StringBuilder sb = new StringBuilder();
