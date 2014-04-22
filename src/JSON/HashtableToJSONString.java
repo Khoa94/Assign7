@@ -5,8 +5,7 @@ import java.util.Iterator;
 
 //Use the "toString()" method of this class to print out Java Hashtable in JSON format
 public class HashtableToJSONString
-    extends
-      Hashtable
+    extends Hashtable
 {
 
   // field

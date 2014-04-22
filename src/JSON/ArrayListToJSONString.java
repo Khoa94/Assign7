@@ -5,8 +5,7 @@ import java.util.Iterator;
 
 //Use the "toString()" method of this class to print out Java ArrayList in JSON format
 public class ArrayListToJSONString
-    extends
-      ArrayList
+    extends ArrayList
 {
   // field
   ArrayList arr;
