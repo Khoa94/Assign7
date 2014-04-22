@@ -26,12 +26,8 @@ public class JSONParser
 {
 
   /*
-<<<<<<< HEAD
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid
    * Hashtable
-=======
-   * Preconditions: charIndex[0]=1 Postconditions: Will return a valid Hashtable
->>>>>>> d8c4e91dd853d0245e4343132fc26fc6bda5f73d
    */
   public static Hashtable readJSONObject(String str, int[] charIndex,
                                          Stack currentStack, Hashtable hb,
@@ -207,12 +203,8 @@ public class JSONParser
    // currentStack, Hashtable hb, ArrayList currentAL)
 
   /*
-<<<<<<< HEAD
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid
    * ArrayList
-=======
-   * Preconditions: charIndex[0]=1 Postconditions: Will return a valid ArrayList
->>>>>>> d8c4e91dd853d0245e4343132fc26fc6bda5f73d
    */
   public static ArrayList readJSONArray(String str, int[] charIndex,
                                         Stack currentStack, Hashtable hb,
@@ -243,11 +235,7 @@ public class JSONParser
                 sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
               }// while char is not '\"'
-<<<<<<< HEAD
             charIndex[0] = charIndex[0] + 1;
-=======
-            charIndex[0] = charIndex[0] + 2;
->>>>>>> d8c4e91dd853d0245e4343132fc26fc6bda5f73d
             String value = sb.toString();
             sb.setLength(0);
             currentAL.add(value);
@@ -430,10 +418,7 @@ public class JSONParser
     ArrayListToJSONString ar2 = new ArrayListToJSONString(ar1);
     System.out.println(ar2.toString());
     System.out.print(JSONObjectToArrayList("[\"Why\"]"));
-<<<<<<< HEAD
     System.out.println(JSONObjectToArrayList(str5));
-=======
->>>>>>> d8c4e91dd853d0245e4343132fc26fc6bda5f73d
     // System.out.println(JavaObjectsToJSONString(ar2));
   }// main
 }// JSONParser Class

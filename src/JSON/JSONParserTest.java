@@ -68,12 +68,6 @@ public class JSONParserTest
     ar.add(temp);
 
     hb2Expected.put("ugly", ar);
-<<<<<<< HEAD
-=======
-
-    System.out.println(hb2Expected.toString());
-    System.out.println(hb2.toString());
->>>>>>> d8c4e91dd853d0245e4343132fc26fc6bda5f73d
     assertTrue(hb2Expected.equals(hb2));
 
     // test 3
@@ -82,7 +76,6 @@ public class JSONParserTest
     ALTester1.add(2);
     assertEquals(JSONParser.JSONObjectToArrayList("[1,2]"), ALTester1);
 
-<<<<<<< HEAD
     // test 4
     ArrayList ALTester2 = new ArrayList();
     ALTester2.add(true);
@@ -95,7 +88,5 @@ public class JSONParserTest
     assertEquals(JSONParser.JSONObjectToArrayList("[true,\"Why\",{\"Yes\"=[777]}]"),
                  ALTester2);
 
-=======
->>>>>>> d8c4e91dd853d0245e4343132fc26fc6bda5f73d
   }// testJSONStringToJavaObject()
 }// JSONParserTest
