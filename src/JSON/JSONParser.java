@@ -30,8 +30,9 @@ public class JSONParser
    * Hashtable
    */
   public static Hashtable readJSONObject(String str, int[] charIndex,
-                                         Stack currentStack, Hashtable hb,
-                                         ArrayList currentAL)
+                                         Stack<Character> currentStack,
+                                         Hashtable hb, ArrayList currentAL)
+    throws Exception
   {
     while (true)
       {
@@ -200,15 +201,17 @@ public class JSONParser
           }// if empty, return hashtable
       }// while true
   }// Hashtable readJSONObject(String str, int[] charIndex, Stack
-   // currentStack, Hashtable hb, ArrayList currentAL)
+
+  // currentStack, Hashtable hb, ArrayList currentAL)
 
   /*
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid
    * ArrayList
    */
   public static ArrayList readJSONArray(String str, int[] charIndex,
-                                        Stack currentStack, Hashtable hb,
-                                        ArrayList currentAL)
+                                        Stack<Character> currentStack,
+                                        Hashtable hb, ArrayList currentAL)
+    throws Exception
   {
     while (true)
       {
@@ -222,8 +225,7 @@ public class JSONParser
                 charIndex[0]++;
               }// if not at the last brace, increment
             return currentAL;
-          }// if char is right square brace, pop off left brace from current
-           // Stack
+          }// if char is right square brace, pop off left brace from current Stack
 
         if (str.charAt(charIndex[0]) == '\"')
           {
@@ -347,6 +349,7 @@ public class JSONParser
    * Postconditions: Will return a valid Hashtable
    */
   public static Hashtable JSONObjectToHashtable(String str)
+    throws Exception
   {
     Stack<Character> currentStack = new Stack<Character>();
 
@@ -368,6 +371,7 @@ public class JSONParser
    */
 
   public static ArrayList JSONObjectToArrayList(String str)
+    throws Exception
   {
     Stack<Character> currentStack = new Stack<Character>();
 
@@ -383,44 +387,9 @@ public class JSONParser
       return null;
   }// ArrayList JSONObjectToArrayList(String str)
 
-  public static boolean correctNumberofBraces(String str)
-  {
-    int i = 1;
-    boolean isCorrect = false;
-    Stack<Character> braceStack = new Stack<Character>();
-    braceStack.push(str.charAt(0));
-    while (i <= str.length() && !braceStack.empty())
-      {
-        if (str.charAt(i) == '{')
-          braceStack.push('{');
-        if (str.charAt(i) == '[')
-          braceStack.push('[');
-        if (str.charAt(i) == '}')
-          {
-            if (braceStack.peek() == '{')
-              braceStack.pop();
-          }// if
-        if (str.charAt(i) == ']')
-          {
-            if (braceStack.peek() == '[')
-              braceStack.pop();
-          }// if
-        i++;
-      }// while
-    if (i == (str.length()))
-      {
-        if (braceStack.empty())
-          {
-            isCorrect = true;
-          }// if
-        else
-          System.out.println("You have at least 1 unmatched brace");
-      }// else
-    return isCorrect;
-  }// correctNumberofBraces(String str)
-
   // all the methods work as expected.
   public static void main(String[] args)
+    throws Exception
   {
     String str1 = "{\"firstName\":\"John\",\"lastName\":\"Doe\" }";
     String str2 = "{\"id\":32e5}";
@@ -428,7 +397,7 @@ public class JSONParser
         "{\"Department\":\"CSC\",\"Number\":32e2,\"Prof\":{\"LName\":\"Rebelsky\",\"FName\":\"Sam\"}}";
     String str4 =
         "{\"glossary\":{\"title\":\" example glossary\",\"GlossDiv\":{\"title\":\"S\",\"GlossList\":{\"GlossEntry\":{\"ID\":\"SGML\",\"SortAs\":\"SGML\",\"GlossTerm\":\"StandardGeneralizedMarkupLanguage\",\"Acronym\":\"SGML\",\"Abbrev\":\"ISO\",\"GlossDef\":{\"para\":\"AmetamarkuplanguageusedtocreatemarkuplanguagessuchasDocBook.\",\"GlossSeeAlso\":\"GML\"},\"GlossSee\":\"markup\"}}}}}";
-    String str5 = "[212,\"a\",{\"id\":32},true";
+    String str5 = "[212,\"a\",{\"id\":32},true]";
     String str21 = "{\"id\":32,\"ugly\":{\"a\":{\"hello\":21}}}";
     String str22 = "{\"id\":32,\"ugly\":[\"a\",{\"hello\":21}]}";
     String str23 = "{\"ab\":[1,2]}";
@@ -454,9 +423,7 @@ public class JSONParser
     ArrayListToJSONString ar2 = new ArrayListToJSONString(ar1);
     System.out.println(ar2.toString());
     System.out.println(JSONObjectToArrayList("[\"Why\"]"));
-    //    System.out.println(JSONObjectToArrayList(str5));
-    System.out.println(correctNumberofBraces(str5));
-    // System.out.println(JavaObjectsToJSONString(ar2));
+    System.out.println(JSONObjectToArrayList(str5));
   }// main
 }// JSONParser Class
 

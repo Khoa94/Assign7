@@ -45,7 +45,7 @@ public class JSONParserTest
   }// testJavaObjectToJSONString()
 
   @Test
-  public void testJSONStringToJavaObject()
+  public void testJSONStringToJavaObject() throws Exception
   {
     // test 1
     String str1 = "{\"firstName\":\"John\",\"lastName\":\"Doe\" }";
