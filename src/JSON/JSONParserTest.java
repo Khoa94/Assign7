@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 import org.junit.Test;
 
-// All tests passed
+// All tests passed on our personal computers but don't pass on MathLAN computer. 
 
 public class JSONParserTest
 {
