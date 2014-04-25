@@ -105,7 +105,7 @@ public class JSONParser
               {
                 sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
-              }// while not end of string, keep appending
+              }// while not end of stristr.replaceAll("\\s+","");ng, keep appending
             charIndex[0] = charIndex[0] + 2;
             String value = sb.toString();
             sb.setLength(0);
@@ -373,6 +373,9 @@ public class JSONParser
   {
     Stack<Character> currentStack = new Stack<Character>();
 
+    //get rid of white spaces
+    str.replaceAll("\\s+", "");
+
     if (str.charAt(0) == '{')
       {
         currentStack.push('{');
@@ -395,6 +398,9 @@ public class JSONParser
   {
     Stack<Character> currentStack = new Stack<Character>();
 
+    //get rid of white spaces
+    str.replaceAll("\\s+", "");
+
     if (str.charAt(0) == '[')
       {
         currentStack.push('[');
@@ -411,10 +417,11 @@ public class JSONParser
   public static void main(String[] args)
     throws Exception
   {
-    String str = URLReader("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
-   // str.replaceAll("\\s+","");
-    System.out.println(str);
-    //Hashtable hb = JSONObjectToHashtable(str);
+    String str =
+        URLReader("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
+    // str.replaceAll("\\s+","");
+    //System.out.println(str);
+    Hashtable hb = JSONObjectToHashtable(str);
     //Object str2 = hb.get("paging");
     System.out.println("hb");
 
