@@ -5,8 +5,7 @@ import java.util.Iterator;
 
 //Use the "toString()" method of this class to print out Java Hashtable in JSON format
 public class HashtableToJSONString
-    extends
-      Hashtable
+    extends Hashtable
 {
 
   // field
@@ -16,7 +15,7 @@ public class HashtableToJSONString
   /*
    * Constructor Precondition: hb is a Hashtable Postcondition: hb=inputHB
    */
-  HashtableToJSONString (Hashtable inputHB)
+  HashtableToJSONString(Hashtable inputHB)
   {
     hb = inputHB;
   }// HashtableToJSONString(Hashtable inputHB)
@@ -26,32 +25,31 @@ public class HashtableToJSONString
    * return a JSON string for hb Precondition: hb is initialized Postcondition:
    * return a JSON string for hb
    */
-  public String
-    toString ()
+  public String toString()
   {
-    StringBuilder sb = new StringBuilder ();
-    sb.append ('{');
+    StringBuilder sb = new StringBuilder();
+    sb.append('{');
 
-    for (Iterator it = hb.keySet ().iterator (); it.hasNext ();)
+    for (Iterator it = hb.keySet().iterator(); it.hasNext();)
       {
-        String key = (String) it.next ();
-        sb.append ("\"" + key + "\":");
+        String key = (String) it.next();
+        sb.append("\"" + key + "\":");
 
-        Object value = (Object) hb.get (key);
+        Object value = (Object) hb.get(key);
         if (value instanceof String)
           {
-            sb.append ("\"" + value + "\"");
+            sb.append("\"" + value + "\"");
           }// if
         else
-          sb.append (value);
+          sb.append(value);
 
-        if (it.hasNext ())
+        if (it.hasNext())
           {
-            sb.append (",");
+            sb.append(",");
           }// if
       }// for
-    sb.append ("}");
-    return sb.toString ();
+    sb.append("}");
+    return sb.toString();
   }// toString
 
 }// HashtableToJSONString

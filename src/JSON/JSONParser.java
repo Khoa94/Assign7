@@ -29,7 +29,6 @@ import java.util.Stack;
 
 public class JSONParser
 {
-
   /*
    * pre-condition: inputURL must be a valid URL containing a valid JSON string
    * post-condition: Return the website's JSON string as a Java string
@@ -225,8 +224,7 @@ public class JSONParser
           }// if empty, return hashtable
       }// while true
   }// Hashtable readJSONObject(String str, int[] charIndex, Stack
-
-  // currentStack, Hashtable hb, ArrayList currentAL)
+   // currentStack, Hashtable hb, ArrayList currentAL)
 
   /*
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid ArrayList
@@ -427,9 +425,9 @@ public class JSONParser
     for (int j = 1; j < numberOfTabs; j++)
       {
         sb.append('\t');
-      }
+      }//for
     return sb.toString();
-  }
+  }//printTabs
 
   /*
    * pre-condition: str is a string in JSON format post-condition: return a
@@ -439,17 +437,18 @@ public class JSONParser
   {
     StringBuilder sb = new StringBuilder();
     Stack currentStack = new Stack();
-    // int numberOfTabs = 0;
+
+    //check whether the comma is within a string
+    boolean withinString = false;
     for (int i = 0; i < str.length(); i++)
       {
         Character currentChar = str.charAt(i);
         if (currentChar == '{' || currentChar == '[')
           {
             currentStack.push(str.charAt(i));
-            // numberOfTabs++;
             sb.append(currentChar + "\n");
             sb.append(printTabs(currentStack.size()));
-          }
+          }//if
         else if (currentChar == '}' || currentChar == ']')
           {
 
@@ -457,21 +456,30 @@ public class JSONParser
             sb.append(printTabs(currentStack.size()));
             sb.append(currentChar);
             currentStack.pop();
-            // numberOfTabs--;
-          }
+          }//else if 
         else if (currentChar == ',')
           {
-            sb.append(currentChar + "\n");
-            sb.append(printTabs(currentStack.size()));
-          }
+            if (!withinString)
+              {
+                sb.append(currentChar + "\n");
+                sb.append(printTabs(currentStack.size()));
+              }//if
+            else
+              {
+                sb.append(currentChar);
+              }//else
+          }//else if
+        else if (currentChar == '\"')
+          {
+            withinString = !withinString;
+          }//else if
         else
           {
             sb.append(currentChar);
-          }
-
-      }
+          }//else
+      }//for
     return sb.toString();
-  }
+  }//structurePrinting(String str)
 
   // all the methods work as expected.
   public static void main(String[] args)
@@ -486,15 +494,8 @@ public class JSONParser
     String str3 = URLReader("http://www.thesandb.com/?json=1");
 
     Hashtable hb = JSONObjectToHashtable(str3);
-    //    ArrayList al = JSONObjectToArrayList ("[\"hello\",\"ugly\",\"face\",\"sometimes\",{\"bye\":12}]");
-    //
     System.out.println(hb);
-    //    System.out.println ((hb.get ("members")));
-    //
-    //    ArrayList al2 = (ArrayList) hb.get ("members");
-    //    System.out.println (al2.get (5));
-
-    System.out.println(structurePrinting(str3));
+    System.out.println(structurePrinting(str));
 
     System.out.println("The end");
   }// main
