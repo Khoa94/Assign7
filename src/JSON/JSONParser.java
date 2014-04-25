@@ -1,6 +1,11 @@
 package JSON;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Stack;
@@ -24,6 +29,21 @@ import java.util.Stack;
 
 public class JSONParser
 {
+
+  public static String URLReader(String inputURL)
+    throws IOException
+  {
+    StringBuilder sb = new StringBuilder();
+    URL oracle = new URL(inputURL);
+    BufferedReader in =
+        new BufferedReader(new InputStreamReader(oracle.openStream()));
+    String inputLine;
+    while ((inputLine = in.readLine()) != null)
+      sb.append(inputLine);
+
+    in.close();
+    return sb.toString();
+  }
 
   /*
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid
@@ -391,39 +411,13 @@ public class JSONParser
   public static void main(String[] args)
     throws Exception
   {
-    String str1 = "{\"firstName\":\"John\",\"lastName\":\"Doe\" }";
-    String str2 = "{\"id\":32e5}";
-    String str3 =
-        "{\"Department\":\"CSC\",\"Number\":32e2,\"Prof\":{\"LName\":\"Rebelsky\",\"FName\":\"Sam\"}}";
-    String str4 =
-        "{\"glossary\":{\"title\":\" example glossary\",\"GlossDiv\":{\"title\":\"S\",\"GlossList\":{\"GlossEntry\":{\"ID\":\"SGML\",\"SortAs\":\"SGML\",\"GlossTerm\":\"StandardGeneralizedMarkupLanguage\",\"Acronym\":\"SGML\",\"Abbrev\":\"ISO\",\"GlossDef\":{\"para\":\"AmetamarkuplanguageusedtocreatemarkuplanguagessuchasDocBook.\",\"GlossSeeAlso\":\"GML\"},\"GlossSee\":\"markup\"}}}}}";
-    String str5 = "[212,\"a\",{\"id\":32},true]";
-    String str21 = "{\"id\":32,\"ugly\":{\"a\":{\"hello\":21}}}";
-    String str22 = "{\"id\":32,\"ugly\":[\"a\",{\"hello\":21}]}";
-    String str23 = "{\"ab\":[1,2]}";
-    String str61 = "{\"ab\":{\"cd\":12}}";
+    String str = URLReader("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
+   // str.replaceAll("\\s+","");
+    System.out.println(str);
+    //Hashtable hb = JSONObjectToHashtable(str);
+    //Object str2 = hb.get("paging");
+    System.out.println("hb");
 
-    Hashtable result = JSONObjectToHashtable(str2);
-    System.out.println(result);
-
-    // converting Hashtable and ArrayList to string in JSON format
-    Hashtable hb1 = new Hashtable();
-    hb1.put("a", "1");
-    hb1.put("b", 2345);
-    hb1.put("c", "89");
-
-    HashtableToJSONString hb2 = new HashtableToJSONString(hb1);
-    System.out.println(hb2.toString());
-
-    ArrayList ar1 = new ArrayList();
-    ar1.add("ab");
-    ar1.add(12);
-    ar1.add(hb2);
-    ar1.add("c");
-    ArrayListToJSONString ar2 = new ArrayListToJSONString(ar1);
-    System.out.println(ar2.toString());
-    System.out.println(JSONObjectToArrayList("[\"Why\"]"));
-    System.out.println(JSONObjectToArrayList(str5));
   }// main
 }// JSONParser Class
 
