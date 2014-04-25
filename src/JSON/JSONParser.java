@@ -34,94 +34,92 @@ public class JSONParser
    * pre-condition: inputURL must be a valid URL containing a valid JSON string
    * post-condition: Return the website's JSON string as a Java string
    */
-  public static String
-    URLReader (String inputURL)
-      throws IOException
+  public static String URLReader(String inputURL)
+    throws IOException
   {
-    StringBuilder sb = new StringBuilder ();
-    URL myURL = new URL (inputURL);
-    BufferedReader in = new BufferedReader (
-                                            new InputStreamReader (
-                                                                   myURL.openStream ()));
+    StringBuilder sb = new StringBuilder();
+    URL myURL = new URL(inputURL);
+    BufferedReader in =
+        new BufferedReader(new InputStreamReader(myURL.openStream()));
     String inputLine;
-    while ((inputLine = in.readLine ()) != null)
-      sb.append (inputLine);
-    in.close ();
-    return sb.toString ();
+    while ((inputLine = in.readLine()) != null)
+      sb.append(inputLine);
+    in.close();
+    return sb.toString();
   }
 
   /*
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid Hashtable
    */
-  public static Hashtable
-    readJSONObject (String str, int[] charIndex, Stack<Character> currentStack,
-                    Hashtable hb, ArrayList currentAL)
-      throws Exception
+  public static Hashtable readJSONObject(String str, int[] charIndex,
+                                         Stack<Character> currentStack,
+                                         Hashtable hb, ArrayList currentAL)
+    throws Exception
   {
     while (true)
       {
-        if (str.charAt (charIndex[0]) == '}')
+        if (str.charAt(charIndex[0]) == '}')
           {
-            currentStack.pop ();
-            if (charIndex[0] < (str.length () - 1))
+            currentStack.pop();
+            if (charIndex[0] < (str.length() - 1))
               {
                 charIndex[0]++;
               }// if not at the last brace, increment
             return hb;
           }// if at right brace, pop off left brace from currentStack
 
-        StringBuilder sb = new StringBuilder ();
+        StringBuilder sb = new StringBuilder();
 
-        if (charIndex[0] < (str.length () - 1))
+        if (charIndex[0] < (str.length() - 1))
           {
             // skip over the first quotation mark
             charIndex[0] = charIndex[0] + 1;
           }// if position is less than string length, skip over quotation mark
 
-        if (charIndex[0] < (str.length () - 1))
+        if (charIndex[0] < (str.length() - 1))
           {
             // read the key
-            while (str.charAt (charIndex[0]) != '\"')
+            while (str.charAt(charIndex[0]) != '\"')
               {
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
               }// while char is not "\""
           }// if position less than string
 
         // store sb to key
-        String key = sb.toString ();
+        String key = sb.toString();
 
         // reset sb
-        sb.setLength (0);
+        sb.setLength(0);
 
-        if (charIndex[0] < (str.length () - 1))
+        if (charIndex[0] < (str.length() - 1))
           {
             // go to the character next ':'
             charIndex[0] = charIndex[0] + 2;
           }// if
 
-        if (str.charAt (charIndex[0]) == '\"')
+        if (str.charAt(charIndex[0]) == '\"')
           {
             // skip over the quotation mark
             charIndex[0]++;
 
-            while (str.charAt (charIndex[0]) != '\"')
+            while (str.charAt(charIndex[0]) != '\"')
               {
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
               }// while not end of stristr.replaceAll("\\s+","");ng, keep
                // appending
             charIndex[0] = charIndex[0] + 1;
-            String value = sb.toString ();
-            sb.setLength (0);
+            String value = sb.toString();
+            sb.setLength(0);
 
-            hb.put (key, value);
+            hb.put(key, value);
             key = null;
             value = null;
           }// if char is '\"'
 
-        else if (str.charAt (charIndex[0]) <= '9'
-                 && str.charAt (charIndex[0]) >= '0')
+        else if (str.charAt(charIndex[0]) <= '9'
+                 && str.charAt(charIndex[0]) >= '0')
           {
 
             boolean containsE = false;
@@ -129,73 +127,73 @@ public class JSONParser
             int counter = 0;
             int value = 0;
 
-            while ((str.charAt (charIndex[0]) <= '9' && str.charAt (charIndex[0]) >= '0')
-                   || (str.charAt (charIndex[0]) == 'e')
-                   || (str.charAt (charIndex[0]) == '.'))
+            while ((str.charAt(charIndex[0]) <= '9' && str.charAt(charIndex[0]) >= '0')
+                   || (str.charAt(charIndex[0]) == 'e')
+                   || (str.charAt(charIndex[0]) == '.'))
               {
-                if (str.charAt (charIndex[0]) == 'e')
+                if (str.charAt(charIndex[0]) == 'e')
                   {
                     containsE = true;
                     indexOfE = counter;
                   }// if e is in number
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
                 counter++;
               }// while char is still number, keep appending
 
             if (containsE == true)
               {
-                double beforeE = Double.parseDouble (sb.toString ()
-                                                       .substring (0, indexOfE));
-                double afterE = Double.parseDouble (sb.toString ()
-                                                      .substring (indexOfE + 1,
-                                                                  sb.toString ()
-                                                                    .length ()));
-                value = (int) (beforeE * (Math.pow (10, afterE)));
+                double beforeE =
+                    Double.parseDouble(sb.toString().substring(0, indexOfE));
+                double afterE =
+                    Double.parseDouble(sb.toString().substring(indexOfE + 1,
+                                                               sb.toString()
+                                                                 .length()));
+                value = (int) (beforeE * (Math.pow(10, afterE)));
                 // value=afterE;
               }// if
             else
               {
-                value = (int) Double.parseDouble (sb.toString ());
+                value = (int) Double.parseDouble(sb.toString());
               }// else
-            sb.setLength (0);
-            hb.put (key, value);
+            sb.setLength(0);
+            hb.put(key, value);
             key = null;
             value = 0;
           }// if char represents a number
 
-        else if (str.charAt (charIndex[0]) == '{')
+        else if (str.charAt(charIndex[0]) == '{')
           {
 
             charIndex[0]++;
-            Hashtable newHB = new Hashtable ();
-            currentStack.push ('{');
-            Hashtable value = readJSONObject (str, charIndex, currentStack,
-                                              newHB, currentAL);
-            hb.put (key, value);
+            Hashtable newHB = new Hashtable();
+            currentStack.push('{');
+            Hashtable value =
+                readJSONObject(str, charIndex, currentStack, newHB, currentAL);
+            hb.put(key, value);
           }// if left curly brace, add new Hashtable
 
-        else if (str.charAt (charIndex[0]) == '[')
+        else if (str.charAt(charIndex[0]) == '[')
           {
-            currentStack.push ('[');
+            currentStack.push('[');
             charIndex[0]++;
-            ArrayList newAL = new ArrayList ();
-            ArrayList value = readJSONArray (str, charIndex, currentStack, hb,
-                                             newAL);
-            hb.put (key, value);
+            ArrayList newAL = new ArrayList();
+            ArrayList value =
+                readJSONArray(str, charIndex, currentStack, hb, newAL);
+            hb.put(key, value);
           }// if left square brace, add new ArrayList
 
-        else if (str.charAt (charIndex[0]) == 't'
-                 || str.charAt (charIndex[0]) == 'f'
-                 || str.charAt (charIndex[0]) == 'n')
+        else if (str.charAt(charIndex[0]) == 't'
+                 || str.charAt(charIndex[0]) == 'f'
+                 || str.charAt(charIndex[0]) == 'n')
           {
-            while (str.charAt (charIndex[0]) != '}'
-                   && str.charAt (charIndex[0]) != ',')
+            while (str.charAt(charIndex[0]) != '}'
+                   && str.charAt(charIndex[0]) != ',')
               {
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
               }// while char is not end brace or comma (seperator)
-            Boolean value = Boolean.valueOf (sb.toString ());
+            Boolean value = Boolean.valueOf(sb.toString());
 
             if (value == true)
               {
@@ -211,17 +209,17 @@ public class JSONParser
                 value = null;
               }// else
 
-            hb.put (key, value);
+            hb.put(key, value);
             key = null;
             value = null;
           }// if char is JSon Constants
 
-        if (str.charAt (charIndex[0]) == ',')
+        if (str.charAt(charIndex[0]) == ',')
           {
             charIndex[0]++;
           }// if char is a comma, skip over
 
-        if (currentStack.isEmpty ())
+        if (currentStack.isEmpty())
           {
             return hb;
           }// if empty, return hashtable
@@ -233,19 +231,19 @@ public class JSONParser
   /*
    * Preconditions: charIndex[0]=1 Postconditions: Will return a valid ArrayList
    */
-  public static ArrayList
-    readJSONArray (String str, int[] charIndex, Stack<Character> currentStack,
-                   Hashtable hb, ArrayList currentAL)
-      throws Exception
+  public static ArrayList readJSONArray(String str, int[] charIndex,
+                                        Stack<Character> currentStack,
+                                        Hashtable hb, ArrayList currentAL)
+    throws Exception
   {
     while (true)
       {
-        StringBuilder sb = new StringBuilder ();
+        StringBuilder sb = new StringBuilder();
 
-        if (str.charAt (charIndex[0]) == ']')
+        if (str.charAt(charIndex[0]) == ']')
           {
-            currentStack.pop ();
-            if (charIndex[0] < str.length () - 1)
+            currentStack.pop();
+            if (charIndex[0] < str.length() - 1)
               {
                 charIndex[0]++;
               }// if not at the last brace, increment
@@ -253,25 +251,25 @@ public class JSONParser
           }// if char is right square brace, pop off left brace from current
            // Stack
 
-        if (str.charAt (charIndex[0]) == '\"')
+        if (str.charAt(charIndex[0]) == '\"')
           {
             // skip over the quotation mark
             charIndex[0]++;
 
-            while (str.charAt (charIndex[0]) != '\"')
+            while (str.charAt(charIndex[0]) != '\"')
               {
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
               }// while char is not '\"'
             charIndex[0] = charIndex[0] + 1;
-            String value = sb.toString ();
-            sb.setLength (0);
-            currentAL.add (value);
+            String value = sb.toString();
+            sb.setLength(0);
+            currentAL.add(value);
             value = null;
           }// if char is '\"'
 
-        else if (str.charAt (charIndex[0]) <= '9'
-                 && str.charAt (charIndex[0]) >= '0')
+        else if (str.charAt(charIndex[0]) <= '9'
+                 && str.charAt(charIndex[0]) >= '0')
           {
 
             boolean containsE = false;
@@ -279,68 +277,68 @@ public class JSONParser
             int counter = 0;
             int value = 0;
 
-            while ((str.charAt (charIndex[0]) <= '9' && str.charAt (charIndex[0]) >= '0')
-                   || (str.charAt (charIndex[0]) == 'e'))
+            while ((str.charAt(charIndex[0]) <= '9' && str.charAt(charIndex[0]) >= '0')
+                   || (str.charAt(charIndex[0]) == 'e'))
               {
-                if (str.charAt (charIndex[0]) == 'e')
+                if (str.charAt(charIndex[0]) == 'e')
                   {
                     containsE = true;
                     indexOfE = counter;
                   }// if e is in number
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
                 counter++;
               }// while char is still number, keep appending
 
             if (containsE == true)
               {
-                double beforeE = Double.parseDouble (sb.toString ()
-                                                       .substring (0, indexOfE));
-                double afterE = Double.parseDouble (sb.toString ()
-                                                      .substring (indexOfE + 1,
-                                                                  sb.toString ()
-                                                                    .length ()));
-                value = (int) (beforeE * (Math.pow (10, afterE)));
+                double beforeE =
+                    Double.parseDouble(sb.toString().substring(0, indexOfE));
+                double afterE =
+                    Double.parseDouble(sb.toString().substring(indexOfE + 1,
+                                                               sb.toString()
+                                                                 .length()));
+                value = (int) (beforeE * (Math.pow(10, afterE)));
                 // value=afterE;
               }// if
             else
               {
-                value = (int) Double.parseDouble (sb.toString ());
+                value = (int) Double.parseDouble(sb.toString());
               }// else
-            sb.setLength (0);
-            currentAL.add (value);
+            sb.setLength(0);
+            currentAL.add(value);
             value = 0;
           }// if char represents a number
 
-        else if (str.charAt (charIndex[0]) == '{')
+        else if (str.charAt(charIndex[0]) == '{')
           {
             charIndex[0]++;
-            Hashtable newHB = new Hashtable ();
-            currentStack.push ('{');
-            Hashtable value = readJSONObject (str, charIndex, currentStack,
-                                              newHB, currentAL);
-            currentAL.add (value);
+            Hashtable newHB = new Hashtable();
+            currentStack.push('{');
+            Hashtable value =
+                readJSONObject(str, charIndex, currentStack, newHB, currentAL);
+            currentAL.add(value);
           }// if left curly brace, add new hashtable
 
-        else if (str.charAt (charIndex[0]) == '[')
+        else if (str.charAt(charIndex[0]) == '[')
           {
-            ArrayList newAL = new ArrayList ();
-            currentStack.push ('[');
-            readJSONArray (str, charIndex, currentStack, hb, currentAL);
+            ArrayList newAL = new ArrayList();
+            currentStack.push('[');
+            readJSONArray(str, charIndex, currentStack, hb, currentAL);
           }// if left square brace, add new ArrayList
 
-        else if (str.charAt (charIndex[0]) == 't'
-                 || str.charAt (charIndex[0]) == 'f'
-                 || str.charAt (charIndex[0]) == 'n')
+        else if (str.charAt(charIndex[0]) == 't'
+                 || str.charAt(charIndex[0]) == 'f'
+                 || str.charAt(charIndex[0]) == 'n')
           {
-            while (str.charAt (charIndex[0]) != ']'
-                   && str.charAt (charIndex[0]) != ',')
+            while (str.charAt(charIndex[0]) != ']'
+                   && str.charAt(charIndex[0]) != ',')
               {
-                sb.append (str.charAt (charIndex[0]));
+                sb.append(str.charAt(charIndex[0]));
                 charIndex[0]++;
               }// while char is not end brace of comma (seperator)
                // charIndex[0]++;
-            Boolean value = Boolean.valueOf (sb.toString ());
+            Boolean value = Boolean.valueOf(sb.toString());
             if (value == true)
               {
                 value = Boolean.TRUE;
@@ -354,15 +352,15 @@ public class JSONParser
               {
                 value = null;
               }// else
-            currentAL.add (value);
+            currentAL.add(value);
             value = null;
           }// if char represents JSON constant
-        if (str.charAt (charIndex[0]) == ',')
+        if (str.charAt(charIndex[0]) == ',')
           {
             charIndex[0] = charIndex[0] + 1;
           }// if comma, skip over
 
-        if (currentStack.isEmpty ())
+        if (currentStack.isEmpty())
           {
             return currentAL;
           }// if currentStack is empty, return currentAL
@@ -374,22 +372,21 @@ public class JSONParser
    * Preconditions: str is a string in JSON format (there's no spaces in str).
    * Postconditions: Will return a valid Hashtable
    */
-  public static Hashtable
-    JSONObjectToHashtable (String str)
-      throws Exception
+  public static Hashtable JSONObjectToHashtable(String str)
+    throws Exception
   {
-    Stack<Character> currentStack = new Stack<Character> ();
+    Stack<Character> currentStack = new Stack<Character>();
 
     // get rid of white spaces
-    str = str.replaceAll ("\\s+", "");
+    str = str.replaceAll("\\s+", "");
 
-    if (str.charAt (0) == '{')
+    if (str.charAt(0) == '{')
       {
-        currentStack.push ('{');
-        Hashtable hb = new Hashtable ();
-        ArrayList currentAL = new ArrayList ();
+        currentStack.push('{');
+        Hashtable hb = new Hashtable();
+        ArrayList currentAL = new ArrayList();
         int[] charIndex = { 1 };
-        return (readJSONObject (str, charIndex, currentStack, hb, currentAL));
+        return (readJSONObject(str, charIndex, currentStack, hb, currentAL));
       }// if first brace is curly left brace
     else
       return null;
@@ -399,22 +396,21 @@ public class JSONParser
    * Preconditions: str is a string in JSON format (there's no spaces in str).
    * Postconditions: Will return a valid ArrayList
    */
-  public static ArrayList
-    JSONObjectToArrayList (String str)
-      throws Exception
+  public static ArrayList JSONObjectToArrayList(String str)
+    throws Exception
   {
-    Stack<Character> currentStack = new Stack<Character> ();
+    Stack<Character> currentStack = new Stack<Character>();
 
     // get rid of white spaces
-    str = str.replaceAll ("\\s+", "");
+    str = str.replaceAll("\\s+", "");
 
-    if (str.charAt (0) == '[')
+    if (str.charAt(0) == '[')
       {
-        currentStack.push ('[');
-        Hashtable hb = new Hashtable ();
-        ArrayList currentAL = new ArrayList ();
+        currentStack.push('[');
+        Hashtable hb = new Hashtable();
+        ArrayList currentAL = new ArrayList();
         int[] charIndex = { 1 };
-        return (readJSONArray (str, charIndex, currentStack, hb, currentAL));
+        return (readJSONArray(str, charIndex, currentStack, hb, currentAL));
       }// if first brace is square left brace
     else
       return null;
@@ -425,81 +421,82 @@ public class JSONParser
    * desired number of tabs. pre-condition: numberOfTabs is a non-negative int
    * post-condition: return a string contains numberOfTabs tabs.
    */
-  public static String
-    printTabs (int numberOfTabs)
+  public static String printTabs(int numberOfTabs)
   {
-    StringBuilder sb = new StringBuilder ();
+    StringBuilder sb = new StringBuilder();
     for (int j = 1; j < numberOfTabs; j++)
       {
-        sb.append ('\t');
+        sb.append('\t');
       }
-    return sb.toString ();
+    return sb.toString();
   }
 
   /*
    * pre-condition: str is a string in JSON format post-condition: return a
    * string that show the structure of a JSON string.
    */
-  public static String
-    structurePrinting (String str)
+  public static String structurePrinting(String str)
   {
-    StringBuilder sb = new StringBuilder ();
-    Stack currentStack = new Stack ();
+    StringBuilder sb = new StringBuilder();
+    Stack currentStack = new Stack();
     // int numberOfTabs = 0;
-    for (int i = 0; i < str.length (); i++)
+    for (int i = 0; i < str.length(); i++)
       {
-        Character currentChar = str.charAt (i);
+        Character currentChar = str.charAt(i);
         if (currentChar == '{' || currentChar == '[')
           {
-            currentStack.push (str.charAt (i));
+            currentStack.push(str.charAt(i));
             // numberOfTabs++;
-            sb.append (currentChar + "\n");
-            sb.append (printTabs (currentStack.size ()));
+            sb.append(currentChar + "\n");
+            sb.append(printTabs(currentStack.size()));
           }
         else if (currentChar == '}' || currentChar == ']')
           {
 
-            sb.append ("\n");
-            sb.append (printTabs (currentStack.size ()));
-            sb.append (currentChar);
-            currentStack.pop ();
+            sb.append("\n");
+            sb.append(printTabs(currentStack.size()));
+            sb.append(currentChar);
+            currentStack.pop();
             // numberOfTabs--;
           }
         else if (currentChar == ',')
           {
-            sb.append (currentChar + "\n");
-            sb.append (printTabs (currentStack.size ()));
+            sb.append(currentChar + "\n");
+            sb.append(printTabs(currentStack.size()));
           }
         else
           {
-            sb.append (currentChar);
+            sb.append(currentChar);
           }
 
       }
-    return sb.toString ();
+    return sb.toString();
   }
 
   // all the methods work as expected.
-  public static void
-    main (String[] args)
-      throws Exception
+  public static void main(String[] args)
+    throws Exception
   {
-    String str = URLReader ("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
-    String str1 = URLReader ("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=grinnell");
-    String str2 = URLReader ("http://grinnellappdev.com/tutorials/appdev_directory.json");
+    String str =
+        URLReader("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
+    String str1 =
+        URLReader("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=grinnell");
+    String str2 =
+        URLReader("http://grinnellappdev.com/tutorials/appdev_directory.json");
+    String str3 = URLReader("http://www.thesandb.com/?json=1");
 
-    Hashtable hb = JSONObjectToHashtable (str2);
-    ArrayList al = JSONObjectToArrayList ("[\"hello\",\"ugly\",\"face\",\"sometimes\",{\"bye\":12}]");
+    Hashtable hb = JSONObjectToHashtable(str3);
+    //    ArrayList al = JSONObjectToArrayList ("[\"hello\",\"ugly\",\"face\",\"sometimes\",{\"bye\":12}]");
+    //
+    System.out.println(hb);
+    //    System.out.println ((hb.get ("members")));
+    //
+    //    ArrayList al2 = (ArrayList) hb.get ("members");
+    //    System.out.println (al2.get (5));
 
-    System.out.println (hb);
-    System.out.println ((hb.get ("members")));
+    System.out.println(structurePrinting(str3));
 
-    ArrayList al2 = (ArrayList) hb.get ("members");
-    System.out.println (al2.get (5));
-
-    System.out.println (structurePrinting (str1));
-
-    System.out.println ("The end");
+    System.out.println("The end");
   }// main
 }// JSONParser Class
 
