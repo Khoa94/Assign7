@@ -13,7 +13,11 @@ http://stackoverflow.com/questions/4952856/how-to-write-java-function-that-retur
 http://www.tutorialspoint.com/java/util/hashtable_put.htm
 http://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html
 I talked to Tyler, Earnest, Evan and Alex in our class about the assignment.
-Samee Zahid ‘17 helps me with this project
+
+Samee Zahid ‘17 gives me the URL: https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=grinnell and show me how to do Google Search using that URL.
+
+Maijid gaves me the URL: http://www.thesandb.com/?json=1 
+
 http://stackoverflow.com/questions/4520137/does-java-have-mutable-types-for-integer-float-double-long
 Professor Rebelsky’s lectures in class. He answered all my questions
 http://docs.oracle.com/javase/7/docs/api/java/util/Hashtable.html
@@ -42,9 +46,8 @@ http://stackoverflow.com/questions/12758106/maximum-number-of-characters-stringb
 
 
 JSON URLs we used:
-http://api.kivaws.org/v1/loans/search.json?status=fundraising
+http://api.kivaws.org/v1/loans/search.json?status=fundraising (found this URL in http://www.raywenderlich.com/5492/working-with-json-in-ios-5)
+ 
 https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=grinnell
 http://www.w3schools.com/json/
 http://grinnellappdev.com/tutorials/appdev_directory.json
-We got this link from Maijid:
-http://www.thesandb.com/?json=1
