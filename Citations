@@ -33,10 +33,16 @@ http://stackoverflow.com/questions/1201927/java-is-assertequalsstring-string-rel
 http://junit.sourceforge.net/javadoc/org/junit/Assert.html
 http://stackoverflow.com/questions/927358/how-to-undo-the-last-git-commit
 http://stackoverflow.com/questions/448919/how-can-i-remove-a-commit-on-github
-
+http://stackoverflow.com/questions/10432538/eclipse-import-conf-xml-files
+http://www.cs.grinnell.edu/~rebelsky/Courses/CSC207/2014S/labs/eclipse.html
+http://docs.oracle.com/javase/tutorial/networking/urls/connecting.html
+http://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+http://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code
+http://stackoverflow.com/questions/12758106/maximum-number-of-characters-stringbuilder-can-accomodate
 
 
 JSON URLs we used:
 http://api.kivaws.org/v1/loans/search.json?status=fundraising
 https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=grinnell
 http://www.w3schools.com/json/
+http://grinnellappdev.com/tutorials/appdev_directory.json
