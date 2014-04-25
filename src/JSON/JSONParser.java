@@ -445,25 +445,25 @@ public class JSONParser
   {
     StringBuilder sb = new StringBuilder ();
     Stack currentStack = new Stack ();
-    //int numberOfTabs = 0;
+    // int numberOfTabs = 0;
     for (int i = 0; i < str.length (); i++)
       {
         Character currentChar = str.charAt (i);
         if (currentChar == '{' || currentChar == '[')
           {
             currentStack.push (str.charAt (i));
-            //numberOfTabs++;
+            // numberOfTabs++;
             sb.append (currentChar + "\n");
             sb.append (printTabs (currentStack.size ()));
           }
         else if (currentChar == '}' || currentChar == ']')
           {
-            
+
             sb.append ("\n");
             sb.append (printTabs (currentStack.size ()));
             sb.append (currentChar);
             currentStack.pop ();
-            //numberOfTabs--;
+            // numberOfTabs--;
           }
         else if (currentChar == ',')
           {
