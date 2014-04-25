@@ -5,7 +5,8 @@ import java.util.Iterator;
 
 //Use the "toString()" method of this class to print out Java ArrayList in JSON format
 public class ArrayListToJSONString
-    extends ArrayList
+    extends
+      ArrayList
 {
   // field
   ArrayList arr;
@@ -14,7 +15,7 @@ public class ArrayListToJSONString
    * Constructor Preconditions: inputArrayList is an ArrayList PostCondition:
    * arr = inputArrayList
    */
-  public ArrayListToJSONString(ArrayList inputArrayList)
+  public ArrayListToJSONString (ArrayList inputArrayList)
   {
     arr = inputArrayList;
   }// ArrayListToJSONString(ArrayList inputArrayList)
@@ -26,33 +27,34 @@ public class ArrayListToJSONString
    * 
    * @see java.util.AbstractCollection#toString()
    */
-  public String toString()
+  public String
+    toString ()
   {
-    Iterator it = arr.iterator();
-    StringBuilder sb = new StringBuilder();
-    sb.append("[");
+    Iterator it = arr.iterator ();
+    StringBuilder sb = new StringBuilder ();
+    sb.append ("[");
 
-    while (it.hasNext())
+    while (it.hasNext ())
       {
-        Object currentElement = it.next();
+        Object currentElement = it.next ();
 
         // add double quotation marks to elements that are strings
         if (currentElement instanceof String)
           {
-            sb.append("\"" + currentElement + "\"");
+            sb.append ("\"" + currentElement + "\"");
           }// if
         else
           {
-            sb.append(currentElement);
+            sb.append (currentElement);
           }// else
 
-        if (it.hasNext())
+        if (it.hasNext ())
           {
-            sb.append(",");
+            sb.append (",");
           }// if
       }// while
 
-    sb.append("]");
-    return sb.toString();
+    sb.append ("]");
+    return sb.toString ();
   }// toJSONString()
 }// ArrayListToJSONString
