@@ -125,7 +125,7 @@ public class JSONParser
             int value = 0;
 
             while ((str.charAt(charIndex[0]) <= '9' && str.charAt(charIndex[0]) >= '0')
-                   || (str.charAt(charIndex[0]) == 'e'))
+                   || (str.charAt(charIndex[0]) == 'e') || (str.charAt(charIndex[0]) == '.'))
               {
                 if (str.charAt(charIndex[0]) == 'e')
                   {
@@ -417,13 +417,13 @@ public class JSONParser
   public static void main(String[] args)
     throws Exception
   {
-    String str =
-        URLReader("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
-    // str.replaceAll("\\s+","");
-    //System.out.println(str);
-    Hashtable hb = JSONObjectToHashtable(str);
+//    String str =
+//        URLReader("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
+//    str.replaceAll("\\s+","");
+//    System.out.println(str);
+    Hashtable hb = JSONObjectToHashtable("{\"balance\":1000.21,\"num\":100,\"nickname\":null,\"is_vip\":true,\"name\":\"foo\"}");
     //Object str2 = hb.get("paging");
-    System.out.println("hb");
+  //  System.out.println(hb);
 
   }// main
 }// JSONParser Class
