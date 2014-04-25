@@ -1,0 +1,7 @@
+                                                 Special Features 
+    
+    In our increasingly advancing technological era, it is not uncommon to find JSON Strings in a URL. It is rare to find JSON strings that are written manually, therefore we don’t support extensive error checking because we expect the JSON string to be correctly syntaxed. However, because some JSON string makers differ, we have supported white-spaces in the JSON string, for our code can accommodate a wider variety of JSON strings.
+    
+    Further, because it is difficult to visualize the structure of a JSON object, we have a method called structurePrinting that takes a Java String in JSON format, and returns a structure of the JSON String that shows where each specific ArrayList of Hashtable begins and ends. 
+    
+    Because education is “the great equalizer” and “key to success”, we designed our methods to particularly help those who are teaching or learning about Java strings and JSON objects. Therefore, it is important to note that our method will crash if preconditions are not met, which is a learning and teaching experience to need to follow directions. Our library is ideal for beginners because it is easy to use, and blends together real-world application in our URL reader, and then proceeds to be able to print the data in an easy-to-read format. Users just need to differentiate between the ‘{’ and the ‘[‘ to specify the method to use. 
