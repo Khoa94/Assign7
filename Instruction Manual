@@ -1,0 +1,15 @@
+                                                Instruction Manual
+
+For converting from a JSON string to a Java objects:
+
+The JSONParser will take any correctly syntaxed JSON String, and convert it into its relative Java Hashtable or ArrayList. There are two functions within this class, the JSONObjectToHashtable that returns a Hashtable, and the JSONObjectToArrayList that returns an ArrayList. The user must dictate which function to use, by looking at the first character of the JSON string that they want to convert. If the first character is '{', then the user must call the readJSONObject function, otherwise, if the first character is '[', the user must call the readJSONArray function.
+
+
+
+For converting from a Java object to a JSON string:
+
+Our program only support converting Hashtable and ArrayList to JSONString. To convert a Java Hashtable or ArrayList to JSON string, build an object of the class HashtableToJSONString or ArrayListToJSONString and call the "toString()" method of that object. An ArrayList will be converted to a JSON array. A Hashtable will be converted to a JSON object.
+
+
+
+To convert a Java string in JSON format to an easy-to-understand string, use the method structurePrinting(String str). 
