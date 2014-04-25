@@ -30,6 +30,10 @@ import java.util.Stack;
 public class JSONParser
 {
 
+  /*
+   * pre-condition: inputURL must be a valid URL containing a valid JSON string
+   * post-condition: Return the website's JSON string as a Java string
+   */
   public static String
     URLReader (String inputURL)
       throws IOException
@@ -42,7 +46,6 @@ public class JSONParser
     String inputLine;
     while ((inputLine = in.readLine ()) != null)
       sb.append (inputLine);
-
     in.close ();
     return sb.toString ();
   }
@@ -396,7 +399,6 @@ public class JSONParser
    * Preconditions: str is a string in JSON format (there's no spaces in str).
    * Postconditions: Will return a valid ArrayList
    */
-
   public static ArrayList
     JSONObjectToArrayList (String str)
       throws Exception
@@ -418,32 +420,86 @@ public class JSONParser
       return null;
   }// ArrayList JSONObjectToArrayList(String str)
 
+  /*
+   * A helper function for structurePrinting. return a string contains the
+   * desired number of tabs. pre-condition: numberOfTabs is a non-negative int
+   * post-condition: return a string contains numberOfTabs tabs.
+   */
+  public static String
+    printTabs (int numberOfTabs)
+  {
+    StringBuilder sb = new StringBuilder ();
+    for (int j = 1; j < numberOfTabs; j++)
+      {
+        sb.append ('\t');
+      }
+    return sb.toString ();
+  }
+
+  /*
+   * pre-condition: str is a string in JSON format post-condition: return a
+   * string that show the structure of a JSON string.
+   */
+  public static String
+    structurePrinting (String str)
+  {
+    StringBuilder sb = new StringBuilder ();
+    Stack currentStack = new Stack ();
+    //int numberOfTabs = 0;
+    for (int i = 0; i < str.length (); i++)
+      {
+        Character currentChar = str.charAt (i);
+        if (currentChar == '{' || currentChar == '[')
+          {
+            currentStack.push (str.charAt (i));
+            //numberOfTabs++;
+            sb.append (currentChar + "\n");
+            sb.append (printTabs (currentStack.size ()));
+          }
+        else if (currentChar == '}' || currentChar == ']')
+          {
+            
+            sb.append ("\n");
+            sb.append (printTabs (currentStack.size ()));
+            sb.append (currentChar);
+            currentStack.pop ();
+            //numberOfTabs--;
+          }
+        else if (currentChar == ',')
+          {
+            sb.append (currentChar + "\n");
+            sb.append (printTabs (currentStack.size ()));
+          }
+        else
+          {
+            sb.append (currentChar);
+          }
+
+      }
+    return sb.toString ();
+  }
+
   // all the methods work as expected.
   public static void
     main (String[] args)
       throws Exception
   {
     String str = URLReader ("http://api.kivaws.org/v1/loans/search.json?status=fundraising");
-    // str.replaceAll("\\s+","");
     String str1 = URLReader ("https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=grinnell");
     String str2 = URLReader ("http://grinnellappdev.com/tutorials/appdev_directory.json");
-    str2 = str2.replaceAll ("\\s+", "");
-    System.out.println (str2);
 
-    // Hashtable hb =
-    // JSONObjectToHashtable("{\"balance\":1000.21,\"num\":100,\"nickname\":null,\"is_vip\":true,\"name\":\"foo\"}");
     Hashtable hb = JSONObjectToHashtable (str2);
     ArrayList al = JSONObjectToArrayList ("[\"hello\",\"ugly\",\"face\",\"sometimes\",{\"bye\":12}]");
-    // Object str2 = hb.get("paging");
-    // System.out.println(hb.get ("loans"));
-    // System.out.println(al);
+
     System.out.println (hb);
     System.out.println ((hb.get ("members")));
 
-    ArrayList ar = (ArrayList) hb.get ("members");
-    System.out.println (ar.get (5));
+    ArrayList al2 = (ArrayList) hb.get ("members");
+    System.out.println (al2.get (5));
 
-    System.out.println ("SOGROSS");
+    System.out.println (structurePrinting (str1));
+
+    System.out.println ("The end");
   }// main
 }// JSONParser Class
 
